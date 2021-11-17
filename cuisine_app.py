@@ -1,3 +1,4 @@
+import time
 import pickle
 import pandas as pd
 from PIL import Image
@@ -5,13 +6,14 @@ import streamlit as st
 
 button_state = None
 
-st.title('Classify a recipe to a cuisine given the ingredients')
+st.title('Identifying a Cuisine?')
 image = Image.open('testimage.jpg')
 st.image(image)
 
 y_test = pd.read_csv('https://raw.githubusercontent.com/kvngdre/cuisine_app/main/pred.csv')
 
-options = st.multiselect(label='Enter ingredients',
+
+options = st.multiselect(label='Enter ingredients below',
                          options=['Almond', 'Anise', 'Anise_seed', 'Apple', 'Apple_brandy', 'Apricot',
                                   'Armagnac', 'Artemisia', 'Artichoke', 'Asparagus', 'Avocado', 'Bacon',
                                   'Baked_potato', 'Banana', 'Barley', 'Bartlett_pear', 'Basil', 'Bay',
@@ -83,8 +85,8 @@ options = st.multiselect(label='Enter ingredients',
                                   'Wood', 'Yam', 'Yeast', 'Yogurt', 'Zucchini'], key=0)
 
 if len(options) < 4:
-    st.warning('For improved results please enter minimum of seven ingredients.')
-elif len(options) > 4 and len(options) < 7:
+    st.warning('Please enter minimum of four ingredients.')
+elif len(options) >= 4 and len(options) < 7:
     st.warning('For improved results please enter minimum of seven ingredients.')
     button_state = st.button('Predict')
 else:
