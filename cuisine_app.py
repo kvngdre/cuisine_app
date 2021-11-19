@@ -1,8 +1,9 @@
-import time
 import pickle
+import matplotlib
 import pandas as pd
 from PIL import Image
 import streamlit as st
+import plotly.express as px
 
 button_state = None
 
@@ -11,6 +12,12 @@ image = Image.open('testimage.jpg')
 st.image(image)
 
 y_test = pd.read_csv('https://raw.githubusercontent.com/kvngdre/cuisine_app/main/pred.csv')
+
+
+@st.cache(allow_output_mutation=True)
+def loading_model(file):
+    model_ = pickle.load(open(file, 'rb'))
+    return model_
 
 
 options = st.multiselect(label='Enter ingredients below',
@@ -84,19 +91,18 @@ options = st.multiselect(label='Enter ingredients below',
                                   'White_bread', 'White_wine', 'Whole_grain_wheat_flour', 'Wine',
                                   'Wood', 'Yam', 'Yeast', 'Yogurt', 'Zucchini'], key=0)
 
+st.text(f'{len(options)} ingredients selected.')
+
 if len(options) < 4:
     st.warning('Please enter minimum of four ingredients.')
-elif len(options) >= 4 and len(options) < 7:
+elif len(options) == 4 or len(options) < 7:
     st.warning('For improved results please enter minimum of seven ingredients.')
     button_state = st.button('Predict')
 else:
     button_state = st.button('Predict')
 
 
-@st.cache(allow_output_mutation=True)
-def loading_model(file):
-    model_ = pickle.load(open(file, 'rb'))
-    return model_
+
 
 
 model_load_state = st.text('Please wait...')
