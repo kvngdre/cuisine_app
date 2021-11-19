@@ -1,9 +1,7 @@
 import pickle
-import matplotlib
 import pandas as pd
 from PIL import Image
 import streamlit as st
-import plotly.express as px
 
 button_state = None
 
@@ -101,17 +99,11 @@ elif len(options) == 4 or len(options) < 7:
 else:
     button_state = st.button('Predict')
 
-
-
-
-
 model_load_state = st.text('Please wait...')
 model = loading_model('food_model.pkl')
 model_load_state.text('')
 
 if button_state:
     y_test.loc[0, options] = 1
-
     prediction = model.predict(y_test)
-
-    st.success(f"This cuisine is {prediction[0]} ")
+    st.success(f"This cuisine is {prediction[0].upper()}.")
