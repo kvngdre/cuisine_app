@@ -1,3 +1,4 @@
+"""Cuisine Classifier code base"""
 import pickle
 import pandas as pd
 from PIL import Image
@@ -14,6 +15,7 @@ y_test = pd.read_csv('https://raw.githubusercontent.com/kvngdre/cuisine_app/main
 
 @st.cache(allow_output_mutation=True)
 def loading_model(file):
+    """Fetches and loads the classifier model"""
     model_ = pickle.load(open(file, 'rb'))
     return model_
 
