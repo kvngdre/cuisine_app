@@ -7,7 +7,7 @@ import streamlit as st
 button_state = None
 
 st.title('Identifying a Cuisine?')
-image = Image.open('testimage.jpg')
+image = Image.open('test_image.jpg')
 st.image(image)
 
 y_test = pd.read_csv('https://raw.githubusercontent.com/kvngdre/cuisine_app/main/pred.csv')
